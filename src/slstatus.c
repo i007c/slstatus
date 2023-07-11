@@ -6,13 +6,14 @@
 #include <string.h>
 #include <time.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include <X11/Xlib.h>
 
 #include "arg.h"
 #include "slstatus.h"
 #include "util.h"
 
-#define DAMIXER_CHANNEL "/tmp/damixer.channel"
+#define DAMIXER_CHANNEL "damixer.channel"
 
 struct arg {
     const char *(*func)();
@@ -70,7 +71,17 @@ int main(int argc, char *argv[]) {
     act.sa_flags |= SA_RESTART;
     sigaction(SIGUSR1, &act, NULL);
 
-    channel = open(DAMIXER_CHANNEL, O_RDONLY | O_CREAT, 00666);
+    char path[512];
+    char username[32];
+
+    if (getlogin_r(username, sizeof(username))) {
+        printf("error getting the username\n");
+        return -1;
+    }
+
+    snprintf(path, sizeof(path), "/tmp/%s."DAMIXER_CHANNEL, username);
+
+    channel = open(path, O_RDONLY | O_CREAT, 00666);
     if (channel == -1) die("Error opening the channel.");
 
     if (!sflag && !(dpy = XOpenDisplay(NULL))) {
