@@ -19,7 +19,9 @@ LDLIBS   = -lX11
 CC = cc
 
 BUILD = build
-FILES = util components/datetime components/ram components/cpu components/keymap components/sound slstatus
+FILES = util slstatus
+FILES += components/datetime components/ram components/cpu
+FILES += components/keymap components/sound components/netspeed
 SRC = $(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ = $(addprefix $(BUILD)/, $(addsuffix .o, $(FILES)))
 REQ = src/config.h src/arg.h src/slstatus.h

@@ -91,37 +91,18 @@ const char *bprintf(const char *fmt, ...) {
     return (ret < 0) ? NULL : buf;
 }
 
-const char *
-fmt_human(uintmax_t num, int base)
-{
-    double scaled;
-    size_t i, prefixlen;
-    const char **prefix;
-    const char *prefix_1000[] = { "", "k", "M", "G", "T", "P", "E", "Z",
-                                  "Y" };
-    const char *prefix_1024[] = { "", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei",
-                                  "Zi", "Yi" };
+const char *fmt_human(uintmax_t num) {
+    const char *prefix[] = {
+        "", " K", " M", " G", " T", " P", " E", " Z", " Y"
+    };
 
-    switch (base) {
-    case 1000:
-        prefix = prefix_1000;
-        prefixlen = LEN(prefix_1000);
-        break;
-    case 1024:
-        prefix = prefix_1024;
-        prefixlen = LEN(prefix_1024);
-        break;
-    default:
-        warn("fmt_human: Invalid base");
-        return NULL;
+    uint8_t i;
+    int64_t scaled = num;
+    for (i = 0; i < 9 && scaled >= 1024; i++) {
+        scaled /= 1024;
     }
 
-    scaled = num;
-    for (i = 0; i < prefixlen && scaled >= base; i++) {
-        scaled /= base;
-    }
-
-    return bprintf("%.1f %s", scaled, prefix[i]);
+    return bprintf("%ld%s", scaled, prefix[i]);
 }
 
 int pscanf(const char *path, const char *fmt, ...) {

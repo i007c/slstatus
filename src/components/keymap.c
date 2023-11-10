@@ -74,7 +74,7 @@ const char *keymap(void) {
 		goto end;
 	}
 
-	layout = bprintf("%s", get_layout(symbols, state.group));
+	layout = (char *)bprintf("%s", get_layout(symbols, state.group));
 
     for (size_t c=0; c < strlen(layout); c++) {
         layout[c] = toupper(layout[c]);

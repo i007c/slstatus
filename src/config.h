@@ -11,6 +11,8 @@ static const char unknown_str[] = "n/a";
 
 static const struct arg args[] = {
     /* function format              argument */
+    { netspeed_rx,   "%s ",             NULL },
+    { netspeed_tx,   "%s | ",             NULL },
     { keymap,   "%s | ",                  NULL },
     { sound,    "%s | ",                  NULL },
     { cpu_perc, "%2s%% ",                 NULL },

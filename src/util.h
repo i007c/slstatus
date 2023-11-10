@@ -1,5 +1,5 @@
-/* See LICENSE file for copyright and license details. */
 #include <stdint.h>
+#include <stdlib.h>
 
 extern char buf[1024];
 
@@ -12,5 +12,5 @@ void die(const char *, ...);
 
 int esnprintf(char *str, size_t size, const char *fmt, ...);
 const char *bprintf(const char *fmt, ...);
-const char *fmt_human(uintmax_t num, int base);
+const char *fmt_human(uintmax_t num);
 int pscanf(const char *path, const char *fmt, ...);
