@@ -10,9 +10,7 @@
 
 char *argv0;
 
-static void
-verr(const char *fmt, va_list ap)
-{
+static void verr(const char *fmt, va_list ap) {
     if (argv0 && strncmp(fmt, "usage", sizeof("usage") - 1)) {
         fprintf(stderr, "%s: ", argv0);
     }
@@ -27,9 +25,7 @@ verr(const char *fmt, va_list ap)
     }
 }
 
-void
-warn(const char *fmt, ...)
-{
+void warn(const char *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
@@ -37,9 +33,7 @@ warn(const char *fmt, ...)
     va_end(ap);
 }
 
-void
-die(const char *fmt, ...)
-{
+void die(const char *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
@@ -49,9 +43,7 @@ die(const char *fmt, ...)
     exit(1);
 }
 
-static int
-evsnprintf(char *str, size_t size, const char *fmt, va_list ap)
-{
+static int evsnprintf(char *str, size_t size, const char *fmt, va_list ap) {
     int ret;
 
     ret = vsnprintf(str, size, fmt, ap);
@@ -67,9 +59,7 @@ evsnprintf(char *str, size_t size, const char *fmt, va_list ap)
     return ret;
 }
 
-int
-esnprintf(char *str, size_t size, const char *fmt, ...)
-{
+int esnprintf(char *str, size_t size, const char *fmt, ...) {
     va_list ap;
     int ret;
 
@@ -100,7 +90,7 @@ const char *fmt_human(uintmax_t num) {
         scaled /= 1024;
     }
 
-    return bprintf("%3ld %s", scaled, prefix[i]);
+    return bprintf("%4ld %s", scaled, prefix[i]);
 }
 
 int pscanf(const char *path, const char *fmt, ...) {
