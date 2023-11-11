@@ -92,9 +92,7 @@ const char *bprintf(const char *fmt, ...) {
 }
 
 const char *fmt_human(uintmax_t num) {
-    const char *prefix[] = {
-        "", " K", " M", " G", " T", " P", " E", " Z", " Y"
-    };
+    const char *prefix[] = { "B", "K", "M", "G", "T", "P", "E", "Z", "Y" };
 
     uint8_t i;
     int64_t scaled = num;
@@ -102,7 +100,7 @@ const char *fmt_human(uintmax_t num) {
         scaled /= 1024;
     }
 
-    return bprintf("%ld%s", scaled, prefix[i]);
+    return bprintf("%3ld %s", scaled, prefix[i]);
 }
 
 int pscanf(const char *path, const char *fmt, ...) {
