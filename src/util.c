@@ -86,7 +86,7 @@ const char *fmt_human(uintmax_t num) {
 
     uint8_t i;
     int64_t scaled = num;
-    for (i = 0; i < 9 && scaled >= 1024; i++) {
+    for (i = 0; i < 9 && scaled > 9999; i++) {
         scaled /= 1024;
     }
 
